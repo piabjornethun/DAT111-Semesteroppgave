@@ -34,28 +34,17 @@ def draw_the_map():
         4: "darkgreen"
     }
 
-    ax_history.bar(
-        m2list,
-        price_m2,
-        color=colors[standard_type],
-        width=5,
-        label="Pris per m²"
-    )
+    ax_history.bar(m2list, price_m2, color=colors[standard_type], width=5, label="Pris per m²")
 
     reference_value = price_m2[m2list.index(100)]
 
-    ax_history.axhline(
-        y=reference_value,
-        color="black",
-        linestyle="--",
-        label="Referanse: 100 m²"
-    )
-
+    ax_history.axhline(y=reference_value, color="black", linestyle="--", linewidth=1.5, alpha=0.8)
+    ax_history.text(195, reference_value - 3, "Referanse: 100 m²", fontsize=9, color="seagreen", ha="right", va="top")
     ax_history.set_title("Kvadratmeterpris", fontsize=13, fontweight="bold")
     ax_history.set_xlabel("Boligstørrelse (m²)", fontsize=11)
     ax_history.set_ylabel("Pris per m² (1000 kr)", fontsize=11)
-    ax_history.grid(axis="y", linestyle="--", alpha=0.2)
-    ax_history.legend()
+    ax_history.grid(axis="y", linestyle="--", alpha=0.3)
+    ax_history.set_axisbelow(True)
 
     plt.draw()
 
@@ -95,7 +84,7 @@ m2 = 100
 marked_point = (43,57)
 
 # Create the figures
-fig = plt.figure(figsize=(12, 9), facecolor="whitesmoke")
+fig = plt.figure(figsize=(11, 7), facecolor="whitesmoke")
 fig.suptitle("Boligpriser i Bergen", fontsize=22, color="#436982", fontweight="bold", y=0.97)
 
 ax_map = fig.add_axes((0.40, 0.07, 0.57, 0.83))
