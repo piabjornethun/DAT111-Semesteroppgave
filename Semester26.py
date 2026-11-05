@@ -91,7 +91,7 @@ marked_point = (43,57)
 
 # Create the figures
 fig = plt.figure(figsize=(12, 7), facecolor="whitesmoke")
-fig.suptitle("Boligpriser i Bergen", fontsize=22, fontweight="bold", y=0.97)
+fig.suptitle("Boligpriser i Bergen", fontsize=22, color="#436982", fontweight="bold", y=0.97)
 
 ax_map = fig.add_axes((0.40, 0.07, 0.57, 0.83))
 ax_radio_house_type = fig.add_axes((0.05, 0.72, 0.28, 0.15))
