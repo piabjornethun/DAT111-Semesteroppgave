@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RadioButtons
 import matplotlib.image as mpimg
-from Semester26_Model import  predict_price
+from Semester26_Model import  predict_price, accuracy
 
 def draw_the_map():
     ax_map.cla()
@@ -18,6 +18,8 @@ def draw_the_map():
     total_price = m2_price * m2 * 1000
     price_box.set_text(f"Estimert boligpris:\n{total_price:,.0f} kr")
     price = f"{round(m2_price * 1000, -2):,.0f}"
+
+    accuracy_box.set_text(accuracy())
 
     m2list = [50,100,150,200]
     price_m2 = [predict_price(x, y,  _m2, house_type, standard_type)/_m2 for _m2 in m2list]
@@ -90,8 +92,9 @@ fig.suptitle("Boligpriser i Bergen", fontsize=22, color="#436982", fontweight="b
 ax_map = fig.add_axes((0.40, 0.07, 0.57, 0.83))
 ax_radio_house_type = fig.add_axes((0.05, 0.82, 0.28, 0.10))
 ax_radio_standard = fig.add_axes((0.05, 0.63, 0.28, 0.13))
-ax_history = fig.add_axes((0.07, 0.07, 0.27, 0.30))
-price_box = fig.text(0.06, 0.50,"",fontsize=13,fontweight="bold",color="seagreen",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
+ax_history = fig.add_axes((0.06, 0.07, 0.27, 0.30))
+price_box = fig.text(0.06, 0.540,"",fontsize=10,fontweight="bold",color="seagreen",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
+accuracy_box = fig.text(0.06,0.44, "",fontsize=10,fontweight="bold",color="#436982",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
 ax_radio_house_type.set_facecolor('white')
 ax_radio_standard.set_facecolor('white')
 ax_radio_house_type.set_title("Boligtype", fontsize=12, fontweight="bold")

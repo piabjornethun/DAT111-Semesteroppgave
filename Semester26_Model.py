@@ -8,6 +8,8 @@ from sklearn.metrics import r2_score, mean_absolute_error
 
 def build_and_train_model():
     global model
+    global r_squared
+    global MAE
     df:DataFrame = pd.read_csv("House_Prices.csv")
 
     # --- Load your data ---
@@ -29,7 +31,9 @@ def build_and_train_model():
     for i in range(0, min(len(l_test),10)):
         print(f"Price: {l_test[i]:>10,.0f}  Predicted: {l_pred[i]:>10,.0f}")
     print(f"R-squared: {r2_score(y_test, y_pred):.2f}")
+    r_squared = f"{r2_score(y_test, y_pred):.2f}"
     print(f"MAE      : {mean_absolute_error(y_test, y_pred):.0f}")
+    MAE = f"{mean_absolute_error(y_test, y_pred):.0f}"
 
 def predict_price(x, y, m2:int,house_type, standard) -> float:
     # Build a single sample
@@ -40,10 +44,15 @@ def predict_price(x, y, m2:int,house_type, standard) -> float:
     pred = model.predict(x_poly)[0]
     return float(pred)
 
+def accuracy() -> str:
+    return "R-squared: " + r_squared + "\nMAE      : " + MAE
 
 y_columns=["x","y","m2","house_type","standard"]
 p_degree = 2
 model = LinearRegression()
+
+r_squared = ""
+MAE = ""
 
 poly = PolynomialFeatures(degree=p_degree)
 build_and_train_model()
