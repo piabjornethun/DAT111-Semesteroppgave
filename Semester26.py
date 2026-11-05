@@ -89,8 +89,8 @@ m2 = 100
 marked_point = (43,57)
 
 # Create the figures
-fig = plt.figure(figsize=(6.0, 6.0),facecolor='lightgray')  # type: ignore[arg-type]
-fig.suptitle("Hus priser Bergen (per m2)", fontsize=20, y=0.95)
+fig = plt.figure(figsize=(6.0, 6.0),facecolor='white')  # type: ignore[arg-type]
+fig.suptitle("Hus priser Bergen (per m2)", fontsize=20, y=0.95, color='#436982')
 
 ax_map = fig.add_axes((0.4, 0.05, 0.50, .85))
 ax_radio_house_type = fig.add_axes((0.05, 0.75, 0.30, .15))
@@ -112,5 +112,3 @@ ax_map.imshow(img, aspect='auto')
 draw_the_map()
 plt.connect('button_press_event', on_click_map)
 plt.show()
-
-
