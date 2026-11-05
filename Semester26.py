@@ -15,6 +15,8 @@ def draw_the_map():
         return
 
     m2_price:float = predict_price(x, y, m2, house_type, standard_type) / m2
+    total_price = m2_price * m2 * 1000
+    price_box.set_text(f"Estimert boligpris:\n{total_price:,.0f} kr")
     price = f"{round(m2_price * 1000, -2):,.0f}"
 
     m2list = [50,100,150,200]
@@ -49,7 +51,10 @@ def draw_the_map():
         label="Referanse: 100 m²"
     )
 
-    ax_history.grid(axis="y", linestyle=":", alpha=0.5)
+    ax_history.set_title("Kvadratmeterpris", fontsize=13, fontweight="bold")
+    ax_history.set_xlabel("Boligstørrelse (m²)", fontsize=11)
+    ax_history.set_ylabel("Pris per m² (1000 kr)", fontsize=11)
+    ax_history.grid(axis="y", linestyle="--", alpha=0.2)
     ax_history.legend()
 
     plt.draw()
@@ -90,18 +95,21 @@ m2 = 100
 marked_point = (43,57)
 
 # Create the figures
-fig = plt.figure(figsize=(12, 7), facecolor="whitesmoke")
+fig = plt.figure(figsize=(12, 9), facecolor="whitesmoke")
 fig.suptitle("Boligpriser i Bergen", fontsize=22, color="#436982", fontweight="bold", y=0.97)
 
 ax_map = fig.add_axes((0.40, 0.07, 0.57, 0.83))
-ax_radio_house_type = fig.add_axes((0.05, 0.72, 0.28, 0.15))
-ax_radio_standard = fig.add_axes((0.05, 0.53, 0.28, 0.15))
-ax_history = fig.add_axes((0.07, 0.08, 0.27, 0.35))
-ax_radio_house_type.set_facecolor('whitesmoke')
-ax_radio_standard.set_facecolor('whitesmoke')
+ax_radio_house_type = fig.add_axes((0.05, 0.82, 0.28, 0.10))
+ax_radio_standard = fig.add_axes((0.05, 0.63, 0.28, 0.13))
+ax_history = fig.add_axes((0.07, 0.07, 0.27, 0.30))
+price_box = fig.text(0.06, 0.50,"",fontsize=13,fontweight="bold",color="seagreen",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
+ax_radio_house_type.set_facecolor('white')
+ax_radio_standard.set_facecolor('white')
+ax_radio_house_type.set_title("Boligtype", fontsize=12, fontweight="bold")
+ax_radio_standard.set_title("Standard", fontsize=12, fontweight="bold")
 
-radio_button_category = RadioButtons(ax_radio_house_type, list(house_types.keys()))
-radio_button_standard = RadioButtons(ax_radio_standard, list(standard_types.keys()))
+radio_button_category = RadioButtons(ax_radio_house_type, list(house_types.keys()), activecolor="seagreen")
+radio_button_standard = RadioButtons(ax_radio_standard, list(standard_types.keys()), activecolor="seagreen")
 radio_button_category.on_clicked(on_house_type)
 radio_button_standard.on_clicked(on_standard)
 
