@@ -2,7 +2,9 @@
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RadioButtons
 import matplotlib.image as mpimg
+from matplotlib.patches import FancyBboxPatch
 from Semester26_Model import  predict_price, accuracy
+
 
 def draw_the_map():
     ax_map.cla()
@@ -90,18 +92,28 @@ fig = plt.figure(figsize=(11, 7), facecolor="whitesmoke")
 fig.suptitle("Boligpriser i Bergen", fontsize=22, color="#436982", fontweight="bold", y=0.97)
 
 ax_map = fig.add_axes((0.40, 0.07, 0.57, 0.83))
-ax_radio_house_type = fig.add_axes((0.05, 0.82, 0.28, 0.10))
-ax_radio_standard = fig.add_axes((0.05, 0.63, 0.28, 0.13))
+ax_radio_house_type = fig.add_axes((0.06, 0.82, 0.24, 0.10))
+ax_radio_standard = fig.add_axes((0.06, 0.63, 0.24, 0.13))
 ax_history = fig.add_axes((0.06, 0.07, 0.27, 0.30))
 price_box = fig.text(0.06, 0.540,"",fontsize=10,fontweight="bold",color="seagreen",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
 accuracy_box = fig.text(0.06,0.44, "",fontsize=10,fontweight="bold",color="#436982",bbox=dict(facecolor="white", edgecolor="lightgray", boxstyle="round,pad=0.6"))
-ax_radio_house_type.set_facecolor('white')
-ax_radio_standard.set_facecolor('white')
-ax_radio_house_type.set_title("Boligtype", fontsize=12, fontweight="bold")
-ax_radio_standard.set_title("Standard", fontsize=12, fontweight="bold")
+for ax in [ax_radio_house_type, ax_radio_standard]:
+    ax.set_facecolor("none")
+    ax.set_frame_on(False)
+
+    box = FancyBboxPatch(
+        (0, 0), 1, 1, boxstyle="round,pad=0.01,rounding_size=0.04", facecolor="white", edgecolor="lightgray", linewidth=1.5, transform=ax.transAxes, mutation_aspect=ax.bbox.width / ax.bbox.height, clip_on=False, zorder=-1)
+    ax.add_patch(box)
+ax_radio_house_type.set_title("Boligtype", fontsize=12, fontweight="bold", color="seagreen")
+ax_radio_standard.set_title("Standard", fontsize=12, fontweight="bold", color="seagreen")
 
 radio_button_category = RadioButtons(ax_radio_house_type, list(house_types.keys()), activecolor="seagreen")
 radio_button_standard = RadioButtons(ax_radio_standard, list(standard_types.keys()), activecolor="seagreen")
+for radio in [radio_button_category, radio_button_standard]:
+    for tekst in radio.labels:
+        tekst.set_fontsize(11)
+        tekst.set_fontweight("bold")
+        tekst.set_color("#436982")
 radio_button_category.on_clicked(on_house_type)
 radio_button_standard.on_clicked(on_standard)
 
