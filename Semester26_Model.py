@@ -48,7 +48,7 @@ def accuracy() -> str:
     return "R-squared: " + r_squared + "\nMAE      : " + MAE
 
 y_columns=["x","y","m2","house_type","standard"]
-p_degree = 2
+p_degree = 3
 model = LinearRegression()
 
 r_squared = ""
