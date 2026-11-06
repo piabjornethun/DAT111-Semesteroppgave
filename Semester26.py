@@ -23,7 +23,7 @@ def draw_the_map():
 
     accuracy_box.set_text(accuracy())
 
-    m2list = [50,100,150,200]
+    m2list = [50,75,100,125,150,175,200]
     price_m2 = [predict_price(x, y,  _m2, house_type, standard_type)/_m2 for _m2 in m2list]
 
     ax_map.text(x + 3, y - 1, price, color='blue', fontsize=15)
